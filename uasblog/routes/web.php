@@ -13,32 +13,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Home Page
 Route::get('/', 'ArticleController@index');
+
+//Register
+Route::get('/register','UserController@registerPage');
+Route::post('/register', 'UserController@register');
 
 //Login User
 Route::get('/login','UserController@loginPage');
 Route::post('/login', 'UserController@login');
 
 //Logout User
-Route::get('/logout', 'UserController@logout');
+Route::get('/logout', 'UserController@logout')->middleware('checkauth');
 
 //Detail Category
-Route::get('/category/{id}','CategoryController@detailCategory');
+Route::get('/category/{id}', 'CategoryController@detailCategory');
 
-//Detail Product
-Route::get('/article/{id}','ArticleController@detailArticle');
+//Detail Article
+Route::get('/article/{id}', 'ArticleController@detailArticle');
 
-//Register User
-Route::get('/register','UserController@registerPage');
-Route::post('/register', 'UserController@register');
+//Blog Menu
+Route::get('/blogmenu', 'ArticleController@blogMenu')->middleware('checkauth', 'checkroleuser');
 
-Route::group(['prefix' => 'user'], function() {
-    Route::get('/', 'UserController@index');
-    Route::get('create', 'UserController@create');
-    Route::post('store', 'UserController@store');
-    Route::group(['prefix' => '{id}'], function () {
-        Route::get('edit', 'UserController@edit');
-        Route::post('update', 'UserController@update');
-        Route::get('destroy', 'UserController@destroy');
-    });
-});
+//Create Blog
+Route::get('/createblog', 'ArticleController@createBlogPage')->middleware('checkauth', 'checkroleuser');
+Route::post('/createblog', 'ArticleController@createBlog');
+
+//Delete Blog
+Route::get('/delete/{id}', 'ArticleController@deleteBlog')->middleware('checkauth', 'checkroleuser');
+
+//Update Profile
+Route::get('/updateprofile', 'UserController@updateProfilePage')->middleware('checkauth', 'checkroleuser');
+Route::post('/updateprofile', 'UserController@updateProfile');
+
+//Admin Menu
+Route::get('/adminmenu', 'UserController@adminMenu')->middleware('checkauth', 'checkroleadmin');
+
+//User Menu
+Route::get('/usermenu', 'UserController@userMenu')->middleware('checkauth', 'checkroleadmin');
+
+//Delete User
+Route::get('/delete/{id}', 'UserController@deleteUser')->middleware('checkauth', 'checkroleadmin');

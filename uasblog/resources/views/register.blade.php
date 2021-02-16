@@ -16,25 +16,29 @@
                                 <form method="POST" action="register">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="name">Name: </label><input class="form-control" type="text" name="name" id="name"><br>
+                                        <label for="name">Name: </label>
+                                        <input class="form-control" type="text" name="name" id="name"><br>
                                         @error ('name')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email Address: </label><input class="form-control" type="text" name="email" id="email"><br>
+                                        <label for="email">Email Address: </label>
+                                        <input class="form-control" type="text" name="email" id="email"><br>
                                         @error ('email')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">Phone: </label><input class="form-control" type="text" name="phone" id="phone"><br>
+                                        <label for="name">Phone: </label>
+                                        <input class="form-control" type="text" name="phone" id="phone"><br>
                                         @error ('phone')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Password: </label><input class="form-control" type="password" name="password" id="password"><br>
+                                        <label for="password">Password: </label>
+                                        <input class="form-control" type="password" name="password" id="password"><br>
                                         @error ('password')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
@@ -42,7 +46,7 @@
                                     <div class="form-group">
                                         <label for="password_confirmation">Confirm Password: </label><input class="form-control" type="password" name="password_confirmation" id="password_confirmation"><br> 
                                     </div>
-                                    <input type="submit" value="submit">
+                                    <input type="submit" value="Submit">
                                 </form>
                             </div> 
                         </div>

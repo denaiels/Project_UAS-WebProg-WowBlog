@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <a class="card-text" href="{{'/article/'.$article->id}}"> {{$article->title}} </a>
-                        <div class="card-text">Rp. {{$article->description}}</div>
+                        <div class="card-text">{{$article->description}}</div>
                     </div>
                 </div>
             @endforeach

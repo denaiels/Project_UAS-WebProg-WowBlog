@@ -110,6 +110,95 @@ class UserController extends Controller
         return view('index', ['categories' => $categories, 'auth' => $auth, 'user' => $user , 'articles' => $articles]);
     }
 
+    public function adminMenu()
+    {
+        $auth = Auth::check();
+        
+        if($auth)
+        {
+            $user = User::where('email', Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+
+        $categories = Category::all();
+        $users = User::where('role', 'admin')->get();
+        return view('admin.adminmenu', ['auth' => $auth, 'user' => $user, 'role' => $role, 'categories' => $categories, 'users' => $users]);
+    }
+
+    public function userMenu()
+    {
+        $auth = Auth::check();
+        
+        if($auth)
+        {
+            $user = User::where('email', Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+
+        $categories = Category::all();
+        $users = User::where('role', 'user')->get();
+        return view('admin.usermenu', ['auth' => $auth, 'user' => $user, 'role' => $role, 'categories' => $categories, 'users' => $users]);
+    }
+
+    public function deleteUser($id)
+    {
+        $auth = Auth::check();
+        if($auth)
+        {
+            $user = User::where('email',Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+        
+        $articlecur = Article::where('user_id', $id)->delete();
+        $usercur = User::find($id);
+        $usercur->delete();
+        
+        $categories = Category::all();
+        $users = User::where('role', 'user')->get();
+        return view('admin.usermenu', ['auth' => $auth, 'user' => $user, 'role' => $role, 'categories' => $categories, 'users' => $users]);
+    }
+
+    public function updateProfilePage()
+    {
+        $auth = Auth::check();
+        if($auth)
+        {
+            $user = User::where('email',Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+        $categories = Category::all();
+        return view('user.updateprofile', ['user' => $user, 'categories' => $categories, 'auth' => $auth]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // function buat update profile
+
+        $auth = Auth::check();
+        if($auth)
+        {
+            $user = User::where('email', Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+        // validation
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->save();
+        
+        $articles = Article::all();
+        $categories = Category::all();
+        return view('index', ['categories' => $categories, 'auth' => $auth, 'user' => $user , 'articles' => $articles]);
+    }
 
     /**
      * Show the form for creating a new resource.

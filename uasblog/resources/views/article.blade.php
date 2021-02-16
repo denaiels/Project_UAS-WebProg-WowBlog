@@ -16,12 +16,6 @@
                     <br>
                     <div class="card-text">{{$article->description}}</div>
                 </div>
-                @if ($user->role == 'admin')
-                <a href="{{'/product/update/'.$product->id}}">Update Product</a>
-                @endif
-                @if ($user->role == 'user')
-                    <a href="{{'/cart/add/'.$product->id}}">Add to Cart</a>
-                @endif
             </div>
         </div>
     </div>

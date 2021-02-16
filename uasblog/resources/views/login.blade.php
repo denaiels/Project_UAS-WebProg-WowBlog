@@ -23,13 +23,15 @@
                                         </select>
                                       </div>
                                     <div class="form-group">
-                                        <label for="email">Email: </label><input class="form-control" type="text" name="email" id="email"><br>
+                                        <label for="email">Email: </label>
+                                        <input class="form-control" type="text" name="email" id="email"><br>
                                         @error ('email')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Password: </label><input class="form-control" type="password" name="password" id="password"><br>
+                                        <label for="password">Password: </label>
+                                        <input class="form-control" type="password" name="password" id="password"><br>
                                         @error ('password')
                                         <div class="alert-danger">{{ $message }}</div>
                                         @enderror
