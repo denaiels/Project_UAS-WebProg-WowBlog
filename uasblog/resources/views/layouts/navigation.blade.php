@@ -34,7 +34,7 @@
                 @else
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/updateprofile">Profil</a>
+                            <a class="nav-link" href="/updateprofile">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/blogmenu">Blog</a>
