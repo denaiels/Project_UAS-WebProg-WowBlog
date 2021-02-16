@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +21,15 @@ class UserController extends Controller
 
         $auth = false;
 
-        return view('login', ['auth' => $auth]);
+
+        $categories = Category::all();
+        return view('login', ['categories' => $categories, 'auth' => $auth]);
     }
 
     public function login(Request $request){
         // function buat login
+
+        $categories = Category::all();
 
         // validation
         $request->validate([
@@ -49,12 +54,12 @@ class UserController extends Controller
             $user = User::where('email', $info['email'])->first();
             // $user = Auth::user();
 
-            $articles = Article::all()->toQuery();
-            return view('index', ['auth' => $auth, 'user' => $user , 'articles' => $articles]);
+            $articles = Article::all();
+            return view('index', ['categories' => $categories, 'auth' => $auth, 'user' => $user , 'articles' => $articles]);
         }
         else
         {
-            return view('login')->with('flash_error', 'Incorrect Username or Password');
+            return view('login', ['categories' => $categories]);
         }
         
         
@@ -65,15 +70,17 @@ class UserController extends Controller
 
         Auth::logout();
 
-        $articles = Article::all()->toQuery()->paginate(6);
-        return view('index', ['auth' => false, 'role' => 'guest', 'articles' => $articles]);
+        $articles = Article::all();
+        $categories = Category::all();
+        return view('index', ['categories' => $categories, 'auth' => false, 'role' => 'guest', 'articles' => $articles]);
     }
 
     public function registerPage()
     {
         $auth = false;
 
-        return view('register', ['auth' => $auth]);
+        $categories = Category::all();
+        return view('register', ['categories' => $categories, 'auth' => $auth]);
     }
 
     public function register(Request $request)
@@ -98,9 +105,9 @@ class UserController extends Controller
         $info = $request->only('name', 'email', 'phone', 'password');
         $auth = Auth::attempt($info);
         // $user = Auth::user();
-        $articles = Article::all()->toQuery();
-
-        return view('index', ['auth' => $auth, 'user' => $user , 'articles' => $articles]);
+        $articles = Article::all();
+        $categories = Category::all();
+        return view('index', ['categories' => $categories, 'auth' => $auth, 'user' => $user , 'articles' => $articles]);
     }
 
 

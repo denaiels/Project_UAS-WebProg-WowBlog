@@ -14,13 +14,13 @@ class CategoriesTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'name' => 'beach'
+                'name' => 'Beach'
             ],
             [
-                'name' => 'mountain'
+                'name' => 'Mountain'
             ],
             [
-                'name' => 'lake'
+                'name' => 'Lake'
             ]
         ]);
     }

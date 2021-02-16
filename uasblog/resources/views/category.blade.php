@@ -3,8 +3,8 @@
 @section('content')
     <div class="container " style="display: block; margin-top: 50px; margin-bottom: 50px">
         <div class="text-light" style="background-color: floralwhite;">
-            <h1 class="text-center" style="color: black">Wow Blog</h1>
-            <h4 class="text-center" style="color: black">Blog of How Wow Indonesia Is</h4>
+            <h2 class="text-center" style="color: black">Category:</h2>
+            <h4 class="text-center" style="color: black">{{ $category->name }}</h4>
 
         </div>
         <div class="row mb-3">

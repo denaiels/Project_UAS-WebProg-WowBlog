@@ -22,6 +22,12 @@ Route::post('/login', 'UserController@login');
 //Logout User
 Route::get('/logout', 'UserController@logout');
 
+//Detail Category
+Route::get('/category/{id}','CategoryController@detailCategory');
+
+//Detail Product
+Route::get('/article/{id}','ArticleController@detailArticle');
+
 //Register User
 Route::get('/register','UserController@registerPage');
 Route::post('/register', 'UserController@register');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,24 @@ class ArticleController extends Controller
             $role = Auth::user()->role;
         }
 
-        $articles = Article::all()->toQuery();
-        return view('index', ['auth' => $auth, 'user' => $user, 'role' => $role, 'articles' => $articles]);
+        $categories = Category::all();
+        $articles = Article::all();
+        return view('index', ['auth' => $auth, 'user' => $user, 'role' => $role, 'categories' => $categories, 'articles' => $articles]);
+    }
+
+    public function detailArticle($id)
+    {
+        $auth = Auth::check();
+        $role = 'guest';
+        $user = new User();
+        if($auth)
+        {
+            $user = User::where('email',Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+        $article = Article::where('id', $id)->first();
+        return view('article', ['article' => $article , 'user' => $user, 'role' => $role, 'auth' => $auth]);
     }
 
     /**

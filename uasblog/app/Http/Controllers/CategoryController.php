@@ -2,11 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function detailCategory($id)
+    {
+        $auth = Auth::check();
+        $role = 'guest';
+        $user = new User();
+        if($auth)
+        {
+            $user = User::where('email',Auth::user()->email)->first();
+            $role = Auth::user()->role;
+        }
+
+        $category = Category::where('id', $id)->first();
+
+        $categories = Category::all();
+        $articles = Article::where('category_id', $id)->get();
+        return view('category', ['categories' => $categories, 'category' => $category, 'articles' => $articles, 'user' => $user, 'role' => $role, 'auth' => $auth]);
+    }
+
     /**
      * Display a listing of the resource.
      *
