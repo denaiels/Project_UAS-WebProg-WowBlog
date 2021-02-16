@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ArticleController@index');
+
+//Login User
+Route::get('/login','UserController@loginPage');
+Route::post('/login', 'UserController@login');
+
+//Logout User
+Route::get('/logout', 'UserController@logout');
+
+//Register User
+Route::get('/register','UserController@registerPage');
+Route::post('/register', 'UserController@register');
 
 Route::group(['prefix' => 'user'], function() {
     Route::get('/', 'UserController@index');
